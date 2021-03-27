@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public Car GetById(int carId)
         {
-            return _carDal.GetById(carId);
+            throw new NotImplementedException();
         }
 
         public void Update(Car car)
