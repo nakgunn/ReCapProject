@@ -11,7 +11,11 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+
             CarManager carManager = new CarManager(new EfCarDal());
+            
+
+            
             carManager.Add(new Car { DescriptionOfCar = "Volvo V40", DailyPrice = 280, ModelYear = 2018, BrandId=1, ColorId=1 });
             foreach (var car in carManager.GetAll())
             {
