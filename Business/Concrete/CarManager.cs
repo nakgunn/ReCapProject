@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Business.Concrete
         ICarDal _carDal;
         public CarManager(ICarDal carDal) 
         {
-            _carDal = carDal;
+            this._carDal = carDal;
         }
 
         public void Add(Car car)
@@ -26,6 +27,11 @@ namespace Business.Concrete
             {
                 Console.WriteLine("Araç açıklaması 2 karakterden uzun, Günlük kiralık ücreti 0 TL'den büyük olmalıdır");
             }            
+        }
+
+        public object GetById(int v)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(Car car)
@@ -55,6 +61,10 @@ namespace Business.Concrete
         public void Update(Car car)
         {
             _carDal.Update(car);
+        }
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
         }
     }
 }
