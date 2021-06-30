@@ -39,11 +39,21 @@ namespace Business.Concrete
 
         }
 
+        public IDataResult<User> GetUserByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email), Messages.UserListed);
+        }
+
         public IDataResult<User> GetUserById(int id)
         {
 
-            return new SuccessDataResult<User>(_userDal.Get(p=>p.UserId==id),Messages.UserListed);
+            return new SuccessDataResult<User>(_userDal.Get(u=>u.UserId==id),Messages.UserListed);
 
+        }
+
+        public IDataResult<List<User>> GetUsersByName(string name)
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.UserName == name), Messages.AllUsersListed);
         }
 
         public IResult Update(User user)

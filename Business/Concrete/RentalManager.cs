@@ -19,6 +19,9 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
+
+        
+
         public IResult Add(Rental rental)
         {
 
@@ -37,14 +40,14 @@ namespace Business.Concrete
 
             else
             {
-                return new ErrorResult("Else çalıştı");
+                return new ErrorResult("an unexpected error occurred when adding rental.");
             }
          
         }
 
-        public IDataResult<List<Rental>> GetAllRentals()
+        public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
     }
 }

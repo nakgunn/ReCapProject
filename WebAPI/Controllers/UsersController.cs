@@ -1,6 +1,4 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,19 +11,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        ICarService _carService;
-
-        public CarsController(ICarService carService)
+        IUserService _userService;
+        // this controller will be use Business.UserManager 
+        // for use UserManager you need inject data access layer to UserManager's constructor
+        public UsersController(IUserService userService)
         {
-            _carService = carService;
+            _userService = userService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAll();
+            var result = _userService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -36,7 +35,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _carService.GetCarById(id);
+            var result = _userService.GetUserById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,10 +43,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbybrandid")]
-        public IActionResult GetByBrandId(int id)
+        [HttpGet("getbyname")]
+        public IActionResult GetByName(string name)
         {
-            var result = _carService.GetCarsByBrandId(id);
+            var result = _userService.GetUsersByName(name);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,33 +54,22 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbycolorid")]
-        public IActionResult GetByColorId(int id)
+        [HttpGet("getbyemail")]
+        public IActionResult GetByEmail(string email)
         {
-            var result = _carService.GetCarsByColorId(id);
+            var result = _userService.GetUserByEmail(email);
+            
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-        [HttpGet("getcarsdetails")]
-        public IActionResult GetCarsDetails()
-        {
-            var result = _carService.GetCarsDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(User user)
         {
-            var result = _carService.Add(car);
+            var result = _userService.Add(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -90,9 +78,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(User user)
         {
-            var result = _carService.Delete(car);
+            var result = _userService.Delete(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -101,19 +89,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(User user)
         {
-            var result = _carService.Update(car);
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
-
-
-
     }
 }
